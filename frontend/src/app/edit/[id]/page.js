@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const Edit = () => {
+const Edit = ({ params }) => {
     const router = useRouter();
-    const { id } = router.query;
+    const id = params.id;
     const [formData, setFormData] = useState({
         brand: '',
         type: '',
@@ -16,8 +16,9 @@ const Edit = () => {
     });
 
     useEffect(() => {
+        console.log(id)
         if (id) {
-            axios.get(`http://localhost:3001/api/products/${id}`)
+            axios.get(`http://localhost:3001/api/products/1`)
                 .then(response => {
                     setFormData(response.data);
                 })
@@ -34,7 +35,7 @@ const Edit = () => {
     const handleUpdate = () => {
         axios.put(`http://localhost:3001/api/products/${id}`, formData)
             .then(() => {
-                router.push('/products');
+                router.push('/');
             })
             .catch(error => {
                 console.error('Error updating product:', error);

@@ -41,6 +41,21 @@ app.get('/api/products', (req, res) => {
     });
 });
 
+app.get('/api/products/:id', (req, res) => {
+    const productId = req.params.id;
+    const sql = 'SELECT * FROM products WHERE id = ?';
+    db.query(sql, [productId], (err, results) => {
+        if (err) {
+            throw err;
+        }
+        if (results.length > 0) {
+            res.json(results[0]);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    });
+});
+
 app.post('/api/products', (req, res) => {
     const { brand, type, stock, price, additional_info } = req.body;
     const sql = 'INSERT INTO products (brand, type, stock, price, additional_info) VALUES (?, ?, ?, ?, ?)';
