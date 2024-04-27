@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 
+const formatPrice = (price) => {
+    return `Rp ${new Intl.NumberFormat('id-ID').format(price)}`;
+};
+
 const Home = () => {
     const [products, setProducts] = useState([]);
     const [formData, setFormData] = useState({
@@ -81,7 +85,7 @@ const Home = () => {
                             <td className="border border-gray-300 px-4 py-2">{product.brand}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.type}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.stock}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.price}</td>
+                            <td className="border border-gray-300 px-4 py-2">{formatPrice(product.price)}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.additional_info}</td>
                             <td className="border border-gray-300 px-4 py-2">
                                 <Link href={`/edit/${product.id}`}>
