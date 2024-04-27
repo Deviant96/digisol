@@ -18,7 +18,7 @@ const Edit = ({ params }) => {
     useEffect(() => {
         console.log(id)
         if (id) {
-            axios.get(`http://localhost:3001/api/products/1`)
+            axios.get(`http://localhost:3001/api/products/${id}`)
                 .then(response => {
                     setFormData(response.data);
                 })
